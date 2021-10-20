@@ -63,6 +63,11 @@
 
         https://blog.csdn.net/sinat_16658263/article/details/90444038 
         
+## ES7索引并发控制:
+    
+        https://blog.csdn.net/asty9000/article/details/101807128
+        
+        https://my.oschina.net/u/4212153/blog/4916992
         
 ## Kibana的配置:
     

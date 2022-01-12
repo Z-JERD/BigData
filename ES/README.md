@@ -97,3 +97,6 @@
         https://blog.51cto.com/u_2262805/2441992
   
 /usr/lib/  
+
+# ES:
+   倒排序原理:https://zhuanlan.zhihu.com/p/33671444

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上传文件</title>
+    <style>
+        #progress-bar {
+        width: 500px;
+        height: 20px;
+        background: #cccccc;
+        border-radius: 5px;
+    }
+    #progress-warp {
+        width: 0px;
+        height: 20px;
+        background: #1B7EE0;
+        border-radius: 5px;
+    }
+    #progress-precent {
+        width: 100%;
+        height: 100%;
+        line-height: 20px;
+        font-size: 14px;
+        color: #FFFFFF;
+        text-align: center;
+    }</style>
+</head>
+<body>
+<div id="progress-bar">
+    <div id="progress-warp"><div id="progress-precent"></div></div>
+</div>
+<div id="upload-result"></div>
+<input type="file" onchange="uploadFile(this)">
+<script>
+ function uploadFile(obj) {
+    var file = obj.files[0];
+    var fileSize = file.size;  //大小为b
+
+    var formData = new FormData();
+    formData.append("file", file);
+    //后台接口地址
+    var url = "http://127.0.0.1:9990/upload";
+    var xhr = new XMLHttpRequest();
+    //加token
+    //xhr.setRequestHeader('token',sessionStorage.getItem('token'));
+    xhr.open('post', url, true);
+    xhr.onreadystatechange = function () {
+        //readystate为4表示请求已完成并就绪
+        if (this.readyState == 4) {
+            //在进度条下方显示接口返回结果
+            document.getElementById('upload-result').innerHTML = this.responseText;
+        }
+    };
+    xhr.upload.onprogress = function (ev) {
+        //如果ev.lengthComputable为true就可以开始计算上传进度
+        //上传进度 = 100* ev.loaded/ev.total
+        if (ev.lengthComputable) {
+            var precent = 100 * ev.loaded / ev.total;
+            //更改进度条，及百分比
+            document.getElementById('progress-warp').style.width = precent + '%';
+            document.getElementById('progress-precent').innerHTML = Math.floor(precent) + '%';
+        }
+    }
+    xhr.send(formData);
+}
+</script>
+</body>
+
+</html>

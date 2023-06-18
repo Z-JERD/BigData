@@ -1,0 +1,21 @@
+version: "3"
+networks:
+  my_net:
+
+services:
+  mysql_db:
+    image: mysql:5.7
+    container_name: docker_mysql
+    restart: always
+    privileged: true
+    environment:
+      MYSQL_ROOT_PASSWORD: centos@123
+    ports:
+      - "3306:3306"
+    volumes:
+      - /usr/local/mysql/log:/var/log/mysql 
+      - /usr/local/mysql/data:/var/lib/mysql 
+      - /usr/local/mysql/conf:/etc/mysql/conf.d 
+      - /etc/localtime:/etc/localtime:ro 
+    networks:
+      - my_net
